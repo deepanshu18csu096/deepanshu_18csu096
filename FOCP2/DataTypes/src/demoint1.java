@@ -1,3 +1,4 @@
+//taking values from user
 import java.util.*;
 class demoint1
 {
