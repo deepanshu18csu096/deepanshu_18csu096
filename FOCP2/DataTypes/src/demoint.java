@@ -1,4 +1,4 @@
-// using operatord
+// using operator
 class demoint
 {
 	public static void main(String [] args)
