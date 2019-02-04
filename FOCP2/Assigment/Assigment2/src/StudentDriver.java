@@ -6,21 +6,7 @@ import java.text.SimpleDateFormat;
 import com.ncu.assignment.validation.*;
 public class StudentDriver
 {
-	public void Exception1(String st1) throws MandatoryMissingException
-	{
-		if(st1.equals(""))
-			{
-				throw new MandatoryMissingException(StudentValidationMessage.mme);
-			}
-	}
-
-	/*public void Exception2(String st2) throws DateFormatException
-	{
-		if(st2!=sdf)
-			{
-				throw new DateFormatException(DateFormatException.dfe);
-			}
-	}*/
+	
 
 	public void student()
 	{
@@ -32,40 +18,40 @@ public class StudentDriver
 		{
 			System.out.print("Enter Student first name : ");
 			String st1=sc.nextLine();
-			Exception1(st1);
+			StudentValidation.Exception1(st1);
 			d1.setfirstName(st1);
 			System.out.print("\nEnter Student last name  : ");
 			st1=sc.nextLine();
-			Exception1(st1);
+			StudentValidation.Exception1(st1);
 			d1.setlastName(st1);
 			System.out.println("\nEnter Address : ");
 			System.out.print("LINE 1  : ");
 			st1=sc.nextLine();
-			Exception1(st1);
+			StudentValidation.Exception1(st1);
 			d1.addr.setline1(st1);
 			System.out.print("LINE 2  : ");
 			st1=sc.nextLine();
-			Exception1(st1);
+			StudentValidation.Exception1(st1);
 			d1.addr.setline2(st1);
 			System.out.print("City    : ");
 			st1=sc.nextLine();
-			Exception1(st1);
+			StudentValidation.Exception1(st1);
 			d1.addr.setcity(st1);
 			System.out.print("State   : ");
 			st1=sc.nextLine();
-			Exception1(st1);
+			StudentValidation.Exception1(st1);
 			d1.addr.setstate(st1);
 			System.out.print("PinCode : ");
 			st1=sc.nextLine();
-			Exception1(st1);
+			StudentValidation.Exception1(st1);
 			d1.addr.setpinCode(Integer.parseInt(st1));
 			System.out.print("\nE-Mail : ");
 			st1=sc.nextLine();
-			Exception1(st1);
+			StudentValidation.Exception1(st1);
 			d1.seteMail(st1);
 			System.out.print("\nContact No. : ");
 			st1=sc.nextLine();
-			Exception1(st1);
+			StudentValidation.Exception1(st1);
 			d1.setcontactNo(st1);
 			
 			System.out.print("Enter Student Date of Birth in dd-mm-yyyy format: ");
@@ -75,30 +61,45 @@ public class StudentDriver
 				{
 					d1.setdob(sdf.parse(dob));
 				}
-				catch(Exception e){ };
+				catch(Exception e)
+				{
+					throw new DateFormatException("Enter correct date.");
+				};
 			System.out.print("\nNo. of Skills you want to enter : ");
-			int sno=sc.nextInt();
+			int size=sc.nextInt();
+			//dummy input to flush scanner
+			sc.nextLine();
+			StudentValidation.Exception2(size);
+			int sno=size;
 			d1.skills=new String[sno];
 			System.out.println("Enter Skills : ");
 			for(int i=0;i<sno;i++)
 			{
 				System.out.print("\t"+(i+1)+". : ");
 				d1.skills[i]=sc.nextLine();
+				/*//d1.skills[i]=sc.nextLine();
+				st1=sc.nextLine();
+				StudentValidation.Exception1(st1);
+				d1.skills[i]=st1;
+				//d1.addr.setline2(st1);
+				System.out.println("\t"+(i+1)+". : "+d1.skills[i]);*/
 			}
 			System.out.print("\nNo. of Qualification you have done : ");
-			int qno=sc.nextInt();
-			sc.nextLine();
+			size=sc.nextInt();
+			StudentValidation.Exception2(size);
+			int qno=size;
+			d1.skills=new String[sno];
 			d1.qual=new Qualification[qno];
 			System.out.println("\nEnter Qualification : ");
 			for(int j=0;j<qno;j++)
 			{
 				d1.qual[j]= new Qualification();
 				System.out.print("Qualification Name : ");
-				d1.qual[j].setqualName(sc.nextLine());
+				d1.qual[j].setqualName(sc.next());
 				System.out.print("University Name    : ");
-				d1.qual[j].setuniversity(sc.nextLine());
+				d1.qual[j].setuniversity(sc.next());
 				System.out.print("Institute Name     : ");
-				d1.qual[j].setinstitute(sc.nextLine());
+				d1.qual[j].setinstitute(sc.next());
 				System.out.print("CGPA               : ");
 				d1.qual[j].setcgpa(sc.nextFloat());
 			}
@@ -119,14 +120,14 @@ public class StudentDriver
 				{
 					d1.projects[l].setstartDate(sdf.parse(sc.nextLine()));
 				}
-				catch(Exception e){ };
+				catch(Exception e){throw new DateFormatException("Enter correct date."); };
 				
 				System.out.print("End Date in dd-mm-yyyy format: ");
 				try
 				{
 					d1.projects[l].setendDate(sdf.parse(sc.nextLine()));
 				}
-				catch(Exception e){ };
+				catch(Exception e){throw new DateFormatException("Enter correct date."); };
 				System.out.print("Enter no. of Responsibility: ");
 				rno=sc.nextInt();
 				d1.projects[l].responsibilities=new String[rno];
@@ -184,8 +185,14 @@ public class StudentDriver
 	}
 		catch(MandatoryMissingException e)
 		{
-			System.out.println(e);}
+			System.out.println(e);
 		}
+		catch(DateFormatException e1)
+		{
+			System.out.println(e1);
+		}
+
+}
 
 	
 	public static void main(String [] args)
